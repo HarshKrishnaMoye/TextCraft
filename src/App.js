@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import Navbar from './components/Navbar'
+// import TextForm from './components/TextForm'
+import About from './components/About'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  <> 
+    <Navbar title="TextCraft" home="Home" about="About"/>
+    {/* <div className="container my-5">
+    <TextForm heading ="Enter The Text That You Want To Analyze"/>
+    </div> */}
+
+    <div className="container my-5">
+      <About/>
     </div>
+    </>
   );
 }
 
