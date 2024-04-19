@@ -8,6 +8,7 @@ export default function TextForm(props) {
     // console.log("Uppercase was clicked"); 
     let newText1 = text.toUpperCase();
     setText(newText1);
+    props.showAlert("Converted To Upper Case","success");
   }
 
 
@@ -15,6 +16,7 @@ export default function TextForm(props) {
     // console.log("Lowercase was clicked"); 
     let newText2 = text.toLowerCase();
     setText(newText2);
+    props.showAlert("Converted To Lower Case","success");
   }
 
   const handlereClick =() =>{
@@ -22,6 +24,7 @@ export default function TextForm(props) {
     let newText3 = text.trim();
     console.log(newText3); 
     setText(newText3);
+    props.showAlert("Removed Spaces From The Beginning","success");
   }
 
 
@@ -39,11 +42,13 @@ export default function TextForm(props) {
     // console.log(newText4)
 
     setText(newText4);
+    props.showAlert("Inverted Text","success");
   }
 
   const handleClClick = ()=>{
-    let newText5 = " ";
+    let newText5 = "";
     setText(newText5);
+    props.showAlert("Text Cleared","success");
   }
 
 
@@ -51,6 +56,7 @@ export default function TextForm(props) {
     let msg = new SpeechSynthesisUtterance();
     msg.text = text;
     window.speechSynthesis.speak(msg);
+    props.showAlert("Text To Speach","success");
   }
 
   const handleOnChange = (event)=>{
@@ -75,18 +81,18 @@ const [text , setText]=  useState("Enter Text Here");
     <div className="form-group">
       <textarea className="form-control" value={text} onChange={handleOnChange} id="MyBox" rows="10"></textarea>
     </div>
-    <button className="btn btn-primary" onClick={handleUpClick}>Convert To Uppercase</button>
-    <button className="btn btn-primary mx-2" onClick={handledownClick}>Convert To Lowercase</button>
-    <button className="btn btn-primary mx-2" onClick={handlereClick}>Remove Spaces</button>
-    <button className="btn btn-primary mx-2" onClick={handleInClick}>Invert Text</button>
-    <button className="btn btn-primary mx-2" onClick={handleClClick}>Clear Text</button>
-    <button type="submit" onClick={speak} className="btn btn-warning mx-2">Speak</button>
+    <button disabled ={text.length===0} className="btn btn-primary my-2" onClick={handleUpClick}>Convert To Uppercase</button>
+    <button disabled ={text.length===0} className="btn btn-primary mx-2 my-2" onClick={handledownClick}>Convert To Lowercase</button>
+    <button disabled ={text.length===0} className="btn btn-primary mx-2 my-2" onClick={handlereClick}>Remove Spaces</button>
+    <button disabled ={text.length===0} className="btn btn-primary mx-2 my-2" onClick={handleInClick}>Invert Text</button>
+    <button disabled ={text.length===0} className="btn btn-primary mx-2 my-2" onClick={handleClClick}>Clear Text</button>
+    <button disabled ={text.length===0} type="submit" onClick={speak} className="btn btn-warning mx-2 my-2">Speak</button>
   </div>
   <div className="container my-5">
     <h4>Your Text Summmary</h4>
     <p><b>Characters :</b> {text.length} characters</p>
-    <p><b>Words :</b> {text.split(" ").length} words</p>
-    <p><b>Total Time To Count Words :</b> {text.split(" ").length * 0.008} </p>
+    <p><b>Words :</b> {text.split(/\s+/).filter((element)=>{ return element.length!==0}).length} words</p>
+    <p><b>Total Time To Count Words :</b> {text.split(" ").filter((element)=>{ return element.length!==0}).length * 0.008} minutes </p>
     <h5>Preview Text</h5>
     <p>{text}</p>
   </div>
